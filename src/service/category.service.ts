@@ -6,3 +6,7 @@ export const createCategory = (params: {
 }) => {
   return Category.create(params);
 };
+
+export const getAllCategories = () => {
+  return Category.find({});
+};

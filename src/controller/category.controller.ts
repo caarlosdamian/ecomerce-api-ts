@@ -1,11 +1,16 @@
 import { Request, Response } from 'express';
 import { CreateCategoryInput } from '../schema/category.schema';
 import connectToDb from '../utils/connectToDb';
-import { createCategory } from '../service/category.service';
+import { createCategory, getAllCategories } from '../service/category.service';
 
 export const getAllCategoriesHandler = async (req: Request, res: Response) => {
   try {
-  } catch (error) {}
+    connectToDb();
+    const categories = await getAllCategories();
+    return res.json(categories).status(200);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
 };
 
 export const createCategoryHandler = async (
