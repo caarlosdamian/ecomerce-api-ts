@@ -1,4 +1,4 @@
-import { object, optional, string, TypeOf} from 'zod';
+import { object, optional, string, TypeOf } from 'zod';
 
 export const createCategorySchema = object({
   body: object({
@@ -22,5 +22,19 @@ export const updateCategorySchema = object({
   }).optional(),
 });
 
+export const deleteCategorySchema = object({
+  params: object({
+    id: string(),
+  }),
+});
+
+export const getCategoryByIdCategorySchema = object({
+  params: object({
+    id: string(),
+  }),
+});
+
 export type CreateCategoryInput = TypeOf<typeof createCategorySchema>['body'];
 export type UpdateCategoryInput = TypeOf<typeof updateCategorySchema>['body'];
+export type DeleteCategoryInput = TypeOf<typeof deleteCategorySchema>['params'];
+export type GetCategoryByIdInput = TypeOf<typeof getCategoryByIdCategorySchema>['params'];

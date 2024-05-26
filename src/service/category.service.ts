@@ -22,3 +22,7 @@ export const updateCategory = (params: {
 export const getCategoryById = ({ id }: { id: string }) => {
   return Category.findById(id);
 };
+
+export const deleteCategory = ({ id }: { id: string }) => {
+  return Category.findByIdAndDelete(id);
+};

@@ -1,8 +1,13 @@
 import { Request, Response } from 'express';
-import { CreateCategoryInput } from '../schema/category.schema';
+import {
+  CreateCategoryInput,
+  DeleteCategoryInput,
+  GetCategoryByIdInput,
+} from '../schema/category.schema';
 import connectToDb from '../utils/connectToDb';
 import {
   createCategory,
+  deleteCategory,
   getAllCategories,
   getCategoryById,
   updateCategory,
@@ -13,6 +18,20 @@ export const getAllCategoriesHandler = async (req: Request, res: Response) => {
     connectToDb();
     const categories = await getAllCategories();
     return res.json(categories).status(200);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+export const getCategoryByIdHandler = async (
+  req: Request<GetCategoryByIdInput>,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    await connectToDb();
+    const category = await getCategoryById({ id });
+    if (!category) return res.status(404).json('Category not found');
+    return res.json(category).status(200);
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -42,7 +61,7 @@ export const updateCategoryHandler = async (
 
     const category = await getCategoryById({ id });
     if (!category) return res.status(401).send('Category not found');
-    
+
     const newCategory = await updateCategory({
       id: category._id,
       body: req.body,
@@ -52,4 +71,19 @@ export const updateCategoryHandler = async (
   } catch (error) {
     return res.status(500).send(error);
   }
+};
+
+export const deleteCategoryHandler = async (
+  req: Request<DeleteCategoryInput>,
+  res: Response
+) => {
+  const { id } = req.params;
+  try {
+    await connectToDb();
+    const category = await getCategoryById({ id });
+    if (!category) return res.status(404).json('Category not found');
+    const prueba = await deleteCategory({ id: category._id });
+    console.log('prueba', prueba);
+    return res.status(200).json('Category deleted succesfully');
+  } catch (error) {}
 };
