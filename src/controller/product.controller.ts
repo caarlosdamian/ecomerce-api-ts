@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { createCategory } from '../service/category.service';
-import { createProduct } from '../service/produc.service';
+import { createProduct, getAllProducts } from '../service/produc.service';
 import { CreateProductInput } from '../schema/product.schema';
 import Category from '../model/category.model';
 import Product from '../model/product.model';
@@ -27,6 +26,15 @@ export const createProductHandler = async (
     );
 
     return res.status(201).json(newProduct);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+export const getAllProductsHandler = async (_: Request, res: Response) => {
+  try {
+    const products = await getAllProducts();
+    return res.status(200).json(products);
   } catch (error) {
     return res.status(500).send(error);
   }
