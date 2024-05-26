@@ -87,50 +87,28 @@
 //   ]
 // }
 
-interface RootObject {
-  id: number; // Producto
-  slug: string; // Producto
-  name: string; // Producto
-  image: Image; // Producto
-  category: string; // ref Categoria
-  categoryImage: Image; //ref  Categoria
-  new: boolean; // Producto
-  price: number; // Producto
-  description: string; // Producto
-  features: string; // Producto
-  includes: Include[]; // Producto
-  gallery: Gallery; // Producto
-  others: Other[]; // ref a ptoductos de cagategoria Producto
-}
-
-// Categoria
-// id
-// category
-// categoryimg
-
-interface Other {
+export interface Other {
   slug: string;
   name: string;
   image: Image;
 }
 
-interface Gallery {
+export interface Gallery {
   first: Image;
   second: Image;
   third: Image;
 }
 
-interface Include {
+export interface Include {
   quantity: number;
   item: string;
 }
 
-interface Image {
+export interface Image {
   mobile: string;
   tablet: string;
   desktop: string;
 }
-
 
 export interface CategoryI {
   name: string;
