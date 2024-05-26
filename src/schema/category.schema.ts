@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from 'zod';
+import { object, optional, string, TypeOf} from 'zod';
 
 export const createCategorySchema = object({
   body: object({
@@ -12,4 +12,15 @@ export const createCategorySchema = object({
   }),
 });
 
+export const updateCategorySchema = object({
+  body: object({
+    name: string()
+      .min(6, 'Name is to shoord - should be min 6 chard')
+      .optional(),
+
+    categoryimg: string().optional(),
+  }).optional(),
+});
+
 export type CreateCategoryInput = TypeOf<typeof createCategorySchema>['body'];
+export type UpdateCategoryInput = TypeOf<typeof updateCategorySchema>['body'];

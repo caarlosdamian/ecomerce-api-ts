@@ -130,3 +130,9 @@ interface Image {
   tablet: string;
   desktop: string;
 }
+
+
+export interface CategoryI {
+  name: string;
+  categoryimg: string;
+}
