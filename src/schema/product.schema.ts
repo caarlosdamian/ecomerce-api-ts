@@ -65,4 +65,13 @@ export const createProductSchema = z.object({
   }),
 });
 
+export const getProductByIdSchema = z.object({
+  params: z.object({
+    id: z.string({
+      required_error: 'id is required',
+    }).min(24),
+  }),
+});
+
+export type GetProductByIdInput = TypeOf<typeof getProductByIdSchema>['params'];
 export type CreateProductInput = TypeOf<typeof createProductSchema>['body'];

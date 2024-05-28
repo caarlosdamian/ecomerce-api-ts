@@ -1,6 +1,13 @@
 import { Request, Response } from 'express';
-import { createProduct, getAllProducts } from '../service/produc.service';
-import { CreateProductInput } from '../schema/product.schema';
+import {
+  createProduct,
+  getAllProducts,
+  getProductById,
+} from '../service/product.service';
+import {
+  CreateProductInput,
+  GetProductByIdInput,
+} from '../schema/product.schema';
 import Category from '../model/category.model';
 import Product from '../model/product.model';
 
@@ -37,5 +44,19 @@ export const getAllProductsHandler = async (_: Request, res: Response) => {
     return res.status(200).json(products);
   } catch (error) {
     return res.status(500).send(error);
+  }
+};
+
+export const getProductByIdHandler = async (
+  req: Request<GetProductByIdInput>,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const product = await getProductById({ id });
+    if (!product) return res.status(404).json({ mssg: 'Product not found' });
+    return res.status(200).json(product);
+  } catch (error) {
+    console.log(error)
   }
 };

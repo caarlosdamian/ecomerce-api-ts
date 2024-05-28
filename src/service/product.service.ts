@@ -8,3 +8,7 @@ export const createProduct = (body: CreateProductInput) => {
 export const getAllProducts = () => {
   return Product.find({});
 };
+
+export const getProductById = ({ id }: { id: string }) => {
+  return Product.findById(id);
+};
