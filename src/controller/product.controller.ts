@@ -3,10 +3,12 @@ import {
   createProduct,
   getAllProducts,
   getProductById,
+  updateProduct,
 } from '../service/product.service';
 import {
   CreateProductInput,
   GetProductByIdInput,
+  UpdateProductInput,
 } from '../schema/product.schema';
 import Category from '../model/category.model';
 import Product from '../model/product.model';
@@ -57,6 +59,21 @@ export const getProductByIdHandler = async (
     if (!product) return res.status(404).json({ mssg: 'Product not found' });
     return res.status(200).json(product);
   } catch (error) {
-    console.log(error)
+    console.log(error);
+  }
+};
+
+export const updateProductHandler = async (
+  req: Request<UpdateProductInput['params'], {}, UpdateProductInput['body']>,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const product = await getProductById({ id });
+    if (!product) return res.status(404).json({ mssg: 'Product not found' });
+    const newProduct = await updateProduct({ id, body: req.body });
+    return res.status(200).json(newProduct);
+  } catch (error) {
+    console.log(error);
   }
 };
