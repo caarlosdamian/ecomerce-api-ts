@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createProductHandler,
+  deleteProductHandler,
   getAllProductsHandler,
   getProductByIdHandler,
   updateProductHandler,
@@ -8,6 +9,7 @@ import {
 import validateResourse from '../middleware/validateResourse';
 import {
   createProductSchema,
+  deleteProductSchema,
   getProductByIdSchema,
   updateProductSchema,
 } from '../schema/product.schema';
@@ -25,6 +27,11 @@ router.patch(
   '/:id',
   validateResourse(updateProductSchema),
   updateProductHandler
+);
+router.delete(
+  '/:id',
+  validateResourse(deleteProductSchema),
+  deleteProductHandler
 );
 
 export default router;

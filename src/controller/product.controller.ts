@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import {
   createProduct,
+  deleteProduct,
   getAllProducts,
   getProductById,
   updateProduct,
 } from '../service/product.service';
 import {
   CreateProductInput,
+  DeleteProductInput,
   GetProductByIdInput,
   UpdateProductInput,
 } from '../schema/product.schema';
@@ -73,6 +75,21 @@ export const updateProductHandler = async (
     if (!product) return res.status(404).json({ mssg: 'Product not found' });
     const newProduct = await updateProduct({ id, body: req.body });
     return res.status(200).json(newProduct);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteProductHandler = async (
+  req: Request<DeleteProductInput>,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+    const product = await getProductById({ id });
+    if (!product) return res.status(404).json({ mssg: 'Product not found' });
+    await deleteProduct({ id });
+    return res.status(200).json({ mssg: 'Product succesfully deleted' });
   } catch (error) {
     console.log(error);
   }

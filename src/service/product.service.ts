@@ -22,3 +22,6 @@ export const updateProduct = (params: {
 }) => {
   return Product.findByIdAndUpdate(params.id, params.body, { new: true });
 };
+export const deleteProduct = (params: { id: string }) => {
+  return Product.findByIdAndDelete(params.id);
+};

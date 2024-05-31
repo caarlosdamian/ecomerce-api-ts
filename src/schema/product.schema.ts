@@ -120,6 +120,17 @@ export const getProductByIdSchema = z.object({
   }),
 });
 
+export const deleteProductSchema = z.object({
+  params: z.object({
+    id: z
+      .string({
+        required_error: 'id is required',
+      })
+      .min(24),
+  }),
+});
+
 export type GetProductByIdInput = TypeOf<typeof getProductByIdSchema>['params'];
 export type CreateProductInput = TypeOf<typeof createProductSchema>['body'];
 export type UpdateProductInput = TypeOf<typeof updateProductSchema>;
+export type DeleteProductInput = TypeOf<typeof deleteProductSchema>['params'];
